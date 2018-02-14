@@ -95,7 +95,8 @@
                 type: Array,
                 default: () => [13, 188]
             },
-            allowNew: Boolean
+            allowNew: Boolean,
+            removeOnBackspace: Boolean
         },
         data() {
             return {
@@ -211,6 +212,9 @@
             },
 
             keydown(event) {
+                if (event.keyCode === 8 && this.removeOnBackspace && !this.newTag.length) {
+                    this.removeLastTag()
+                }
                 // Stop if is to accept select only
                 if (this.autocomplete && !this.allowNew) return
 
