@@ -152,13 +152,22 @@
         },
         methods: {
             addTag(tag) {
-                const tagToAdd = tag || this.newTag.trim()
+                let tagToAdd = tag || this.newTag.trim()
 
-                // Add the tag input if it is not blank or previously added.
-                if (tagToAdd && this.tags.indexOf(tagToAdd) === -1) {
-                    this.tags.push(tagToAdd)
-                    this.$emit('input', this.tags)
-                    this.$emit('add', tagToAdd)
+                if (tagToAdd) {
+                    // If comma is set as confirm key, split into separated tags.
+                    tagToAdd = this.confirmKeyCodes.indexOf(188) !== -1
+                        ? tagToAdd.split(',')
+                        : tagToAdd.split()
+
+                    tagToAdd.forEach((t) => {
+                        // Add the tag input if it is not blank or previously added.
+                        if (t && this.tags.indexOf(t) === -1) {
+                            this.tags.push(t)
+                            this.$emit('input', this.tags)
+                            this.$emit('add', t)
+                        }
+                    })
                 }
 
                 this.newTag = ''
