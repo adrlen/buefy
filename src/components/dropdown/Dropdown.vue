@@ -81,7 +81,7 @@
              * When v-model is changed set the new selected item.
              */
             value(value) {
-                this.selectItem(value)
+                this.selected = value
             },
 
             /**
@@ -99,9 +99,11 @@
              *   3. Close the dropdown.
              */
             selectItem(value) {
-                this.selected = value
+                if (this.selected !== value) {
+                    this.$emit('change', value)
+                    this.selected = value
+                }
                 this.$emit('input', value)
-                this.$emit('change', value)
                 this.isActive = false
             },
 

@@ -43,7 +43,7 @@ export default [
                 name: '<code>iconPack</code>',
                 description: 'Icon pack to use if <code>hasIcon</code>, optional',
                 type: 'String',
-                values: '<code>mdi</code>, <code>fa</code>',
+                values: '<code>mdi</code>, <code>fa</code>, <code>fas</code>, <code>far</code>, <code>fad</code>, <code>fal</code>',
                 default: '—'
             },
             {
@@ -109,6 +109,13 @@ export default [
                 type: 'String',
                 values: '<code>clip</code>, <code>keep</code>',
                 default: '<code>clip</code>'
+            },
+            {
+                name: '<code>focusOn</code>',
+                description: 'Focus on confirm or cancel button (when dialog is not prompt)',
+                type: 'String',
+                values: '<code>confirm</code>, <code>cancel</code>',
+                default: '<code>confirm</code>'
             }
         ]
     }

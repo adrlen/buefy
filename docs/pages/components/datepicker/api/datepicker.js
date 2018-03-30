@@ -96,7 +96,7 @@ export default [
                 name: '<code>icon-pack</code>',
                 description: 'Icon pack to use',
                 type: 'String',
-                values: '<code>mdi</code>, <code>fa</code>',
+                values: '<code>mdi</code>, <code>fa</code>, <code>fas</code>, <code>far</code>, <code>fad</code>, <code>fal</code>',
                 default: '<code>mdi</code>'
             },
             {
@@ -161,6 +161,28 @@ export default [
                 name: 'default',
                 description: 'Footer',
                 props: '—'
+            },
+            {
+                name: 'header',
+                description: 'Header',
+                props: '—'
+            }
+        ],
+        events: [
+            {
+                name: '<code>input</code>',
+                description: 'Triggers when value is changed',
+                parameters: '<code>value: Date</code>'
+            },
+            {
+                name: '<code>change-month</code>',
+                description: 'Triggers when calendar month is changed',
+                parameters: '<code>month: Number(0-11)</code>'
+            },
+            {
+                name: '<code>change-year</code>',
+                description: 'Triggers when calendar year is changed',
+                parameters: '<code>year: Number</code>'
             }
         ]
     }

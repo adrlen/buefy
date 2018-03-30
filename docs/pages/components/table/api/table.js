@@ -171,6 +171,13 @@ export default [
                 default: '<code>[]</code>'
             },
             {
+              name: '<code>has-detailed-visible</code>',
+              description: 'Controls the visibility of the trigger that toggles the detailed rows.',
+              type: 'Function (row: Object)',
+              values: '—',
+              default: '<code>true</code>'
+            },
+            {
                 name: '<code>detail-key</code>',
                 description: 'Use an unique key of your data Object when use detailed or opened detailed. (id recommended)',
                 type: 'String',
@@ -183,6 +190,13 @@ export default [
                 type: 'Function (a: Object, b: Object)',
                 values: '—',
                 default: '—'
+            },
+            {
+                name: '<code>is-row-checkable</code>',
+                description: 'Custom method to verify if a row is disabled, works when is <code>checkable</code>. ',
+                type: 'Function (row: Object)',
+                values: '—',
+                default: 'true'
             }
 
         ],

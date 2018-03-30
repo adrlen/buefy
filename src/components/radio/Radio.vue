@@ -39,7 +39,6 @@
             value(value) {
                 this.newValue = value
             },
-
             /**
              * Emit input event to update the user v-model.
              */

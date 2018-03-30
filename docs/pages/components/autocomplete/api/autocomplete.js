@@ -23,6 +23,13 @@ export default [
                 default: '<code>value</code>'
             },
             {
+                name: '<code>clear-on-select</code>',
+                description: 'Clear input text on select',
+                type: 'Boolean',
+                values: '—',
+                default: '<code>false</code>'
+            },
+            {
                 name: '<code>open-on-focus</code>',
                 description: 'Open dropdown list on focus',
                 type: 'Boolean',
@@ -68,7 +75,7 @@ export default [
                 name: '<code>icon-pack</code>',
                 description: 'Icon pack to use',
                 type: 'String',
-                values: '<code>mdi</code>, <code>fa</code>',
+                values: '<code>mdi</code>, <code>fa</code>, <code>fas</code>, <code>far</code>, <code>fad</code>, <code>fal</code>',
                 default: '<code>mdi</code>'
             },
             {
