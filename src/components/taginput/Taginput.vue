@@ -14,6 +14,7 @@
                 :attached="attached"
                 :tabstop="false"
                 :disabled="disabled"
+                :ellipsis="ellipsis"
                 closable
                 @close="removeTag(index)">
                 {{ getNormalizedTagText(tag) }}
@@ -102,6 +103,7 @@
             },
             autocomplete: Boolean,
             disabled: Boolean,
+            ellipsis: Boolean,
             confirmKeyCodes: {
                 type: Array,
                 default: () => [13, 188]
@@ -110,7 +112,15 @@
                 type: Array,
                 default: () => [8]
             },
-            allowNew: Boolean
+            allowNew: Boolean,
+            onPasteSeparators: {
+                type: Array,
+                default: () => [',']
+            },
+            beforeAdding: {
+                type: Function,
+                default: () => true
+            }
         },
         data() {
             return {
@@ -163,6 +173,18 @@
 
             tagsLength() {
                 return this.tags.length
+            },
+
+            /**
+             * If Taginput has onPasteSeparators prop,
+             * returning new RegExp used to split pasted string.
+             */
+            separatorsAsRegExp() {
+                const sep = this.onPasteSeparators
+
+                return sep.length ? new RegExp(sep.map((s) => {
+                    return s ? s.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') : null
+                }).join('|'), 'g') : null
             }
         },
         watch: {
@@ -186,19 +208,23 @@
                 let tagToAdd = tag || this.newTag.trim()
 
                 if (tagToAdd) {
-                    // If comma is set as confirm key, split into separated tags.
-                    tagToAdd = this.confirmKeyCodes.indexOf(188) !== -1
-                        ? tagToAdd.split(',')
-                        : tagToAdd.split()
-
-                    tagToAdd.forEach((t) => {
-                        // Add the tag input if it is not blank or previously added.
-                        if (t && this.tags.indexOf(t) === -1) {
-                            this.tags.push(t)
-                            this.$emit('input', this.tags)
-                            this.$emit('add', t)
+                    if (!this.autocomplete) {
+                        const reg = this.separatorsAsRegExp
+                        if (reg && tagToAdd.match(reg)) {
+                            tagToAdd.split(reg)
+                                .map((t) => t.trim())
+                                .filter((t) => t.length !== 0)
+                                .map(this.addTag)
+                            return
                         }
-                    })
+                    }
+
+                    // Add the tag input if it is not blank or previously added.
+                    if (this.tags.indexOf(tagToAdd) === -1 && this.beforeAdding(tagToAdd)) {
+                        this.tags.push(tagToAdd)
+                        this.$emit('input', this.tags)
+                        this.$emit('add', tagToAdd)
+                    }
                 }
 
                 this.newTag = ''
