@@ -86,7 +86,12 @@
             keepFirst: Boolean,
             clearOnSelect: Boolean,
             openOnFocus: Boolean,
-            customFormatter: Function
+            customFormatter: Function,
+            /* INTERNAL PROPS */
+            additionnalNodes: {
+                type: Array,
+                default: () => []
+            }
         },
         data() {
             return {

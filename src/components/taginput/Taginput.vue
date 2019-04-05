@@ -36,6 +36,7 @@
                 :loading="loading"
                 :autocomplete="nativeAutocomplete"
                 :keep-first="!allowNew"
+                :additional-nodes="_additionnalNodes"
                 @typing="onTyping"
                 @focus="onFocus"
                 @blur="customOnBlur"
@@ -143,7 +144,8 @@
                 tags: this.value || [],
                 newTag: '',
                 _elementRef: 'input',
-                _isTaginput: true
+                _isTaginput: true,
+                _additionnalNodes: []
             }
         },
         computed: {
@@ -217,6 +219,9 @@
              */
             value(value) {
                 this.tags = value
+                if (this.autocomplete) {
+                    this._additionnalNodes = this.$el.querySelectorAll('.tag')
+                }
             },
 
             hasInput() {
@@ -304,6 +309,11 @@
 
             onTyping($event) {
                 this.$emit('typing', $event.trim())
+            }
+        },
+        mounted() {
+            if (this.autocomplete) {
+                this._additionnalNodes = this.$el.querySelectorAll('*')
             }
         }
     }
